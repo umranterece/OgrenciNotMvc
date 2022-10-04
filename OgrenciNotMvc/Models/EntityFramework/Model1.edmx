@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbMvcOkulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAdi" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tbl_Kulup">
+          <Key>
+            <PropertyRef Name="KulupId" />
+          </Key>
+          <Property Name="KulupId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KulupAdi" Type="varchar" MaxLength="50" />
+          <Property Name="KulupKontejan" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Tbl_Not">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersId" Type="tinyint" />
+          <Property Name="OgrId" Type="int" />
+          <Property Name="Sinav1" Type="tinyint" />
+          <Property Name="Sinav2" Type="tinyint" />
+          <Property Name="Sinav3" Type="tinyint" />
+          <Property Name="Proje" Type="tinyint" />
+          <Property Name="Ortalama" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Durum" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Ogrenci">
+          <Key>
+            <PropertyRef Name="OgrId" />
+          </Key>
+          <Property Name="OgrId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrAdi" Type="varchar" MaxLength="50" />
+          <Property Name="OgrSoyadi" Type="varchar" MaxLength="50" />
+          <Property Name="OgrFotograf" Type="varchar" MaxLength="200" />
+          <Property Name="OgrCinsiyet" Type="varchar" MaxLength="5" />
+          <Property Name="OgrKulup" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_Tbl_Not_Tbl_Dersler">
+          <End Role="Tbl_Dersler" Type="Self.Tbl_Dersler" Multiplicity="0..1" />
+          <End Role="Tbl_Not" Type="Self.Tbl_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dersler">
+              <PropertyRef Name="DersId" />
+            </Principal>
+            <Dependent Role="Tbl_Not">
+              <PropertyRef Name="DersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Not_Tbl_Ogrenci">
+          <End Role="Tbl_Ogrenci" Type="Self.Tbl_Ogrenci" Multiplicity="0..1" />
+          <End Role="Tbl_Not" Type="Self.Tbl_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ogrenci">
+              <PropertyRef Name="OgrId" />
+            </Principal>
+            <Dependent Role="Tbl_Not">
+              <PropertyRef Name="OgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ogrenci_Tbl_Kulup">
+          <End Role="Tbl_Kulup" Type="Self.Tbl_Kulup" Multiplicity="0..1" />
+          <End Role="Tbl_Ogrenci" Type="Self.Tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kulup">
+              <PropertyRef Name="KulupId" />
+            </Principal>
+            <Dependent Role="Tbl_Ogrenci">
+              <PropertyRef Name="OgrKulup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbMvcOkulModelStoreContainer">
+          <EntitySet Name="Tbl_Dersler" EntityType="Self.Tbl_Dersler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Kulup" EntityType="Self.Tbl_Kulup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Not" EntityType="Self.Tbl_Not" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Ogrenci" EntityType="Self.Tbl_Ogrenci" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Not_Tbl_Dersler" Association="Self.FK_Tbl_Not_Tbl_Dersler">
+            <End Role="Tbl_Dersler" EntitySet="Tbl_Dersler" />
+            <End Role="Tbl_Not" EntitySet="Tbl_Not" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Not_Tbl_Ogrenci" Association="Self.FK_Tbl_Not_Tbl_Ogrenci">
+            <End Role="Tbl_Ogrenci" EntitySet="Tbl_Ogrenci" />
+            <End Role="Tbl_Not" EntitySet="Tbl_Not" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ogrenci_Tbl_Kulup" Association="Self.FK_Tbl_Ogrenci_Tbl_Kulup">
+            <End Role="Tbl_Kulup" EntitySet="Tbl_Kulup" />
+            <End Role="Tbl_Ogrenci" EntitySet="Tbl_Ogrenci" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbMvcOkulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tbl_Dersler">
+          <Key>
+            <PropertyRef Name="DersId" />
+          </Key>
+          <Property Name="DersId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Not" Relationship="Self.FK_Tbl_Not_Tbl_Dersler" FromRole="Tbl_Dersler" ToRole="Tbl_Not" />
+        </EntityType>
+        <EntityType Name="Tbl_Kulup">
+          <Key>
+            <PropertyRef Name="KulupId" />
+          </Key>
+          <Property Name="KulupId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KulupAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KulupKontejan" Type="Int16" />
+          <NavigationProperty Name="Tbl_Ogrenci" Relationship="Self.FK_Tbl_Ogrenci_Tbl_Kulup" FromRole="Tbl_Kulup" ToRole="Tbl_Ogrenci" />
+        </EntityType>
+        <EntityType Name="Tbl_Not">
+          <Key>
+            <PropertyRef Name="NotId" />
+          </Key>
+          <Property Name="NotId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersId" Type="Byte" />
+          <Property Name="OgrId" Type="Int32" />
+          <Property Name="Sinav1" Type="Byte" />
+          <Property Name="Sinav2" Type="Byte" />
+          <Property Name="Sinav3" Type="Byte" />
+          <Property Name="Proje" Type="Byte" />
+          <Property Name="Ortalama" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Durum" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Dersler" Relationship="Self.FK_Tbl_Not_Tbl_Dersler" FromRole="Tbl_Not" ToRole="Tbl_Dersler" />
+          <NavigationProperty Name="Tbl_Ogrenci" Relationship="Self.FK_Tbl_Not_Tbl_Ogrenci" FromRole="Tbl_Not" ToRole="Tbl_Ogrenci" />
+        </EntityType>
+        <EntityType Name="Tbl_Ogrenci">
+          <Key>
+            <PropertyRef Name="OgrId" />
+          </Key>
+          <Property Name="OgrId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OgrSoyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OgrFotograf" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="OgrCinsiyet" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="OgrKulup" Type="Byte" />
+          <NavigationProperty Name="Tbl_Kulup" Relationship="Self.FK_Tbl_Ogrenci_Tbl_Kulup" FromRole="Tbl_Ogrenci" ToRole="Tbl_Kulup" />
+          <NavigationProperty Name="Tbl_Not" Relationship="Self.FK_Tbl_Not_Tbl_Ogrenci" FromRole="Tbl_Ogrenci" ToRole="Tbl_Not" />
+        </EntityType>
+        <Association Name="FK_Tbl_Not_Tbl_Dersler">
+          <End Role="Tbl_Dersler" Type="Self.Tbl_Dersler" Multiplicity="0..1" />
+          <End Role="Tbl_Not" Type="Self.Tbl_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Dersler">
+              <PropertyRef Name="DersId" />
+            </Principal>
+            <Dependent Role="Tbl_Not">
+              <PropertyRef Name="DersId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ogrenci_Tbl_Kulup">
+          <End Role="Tbl_Kulup" Type="Self.Tbl_Kulup" Multiplicity="0..1" />
+          <End Role="Tbl_Ogrenci" Type="Self.Tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Kulup">
+              <PropertyRef Name="KulupId" />
+            </Principal>
+            <Dependent Role="Tbl_Ogrenci">
+              <PropertyRef Name="OgrKulup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Not_Tbl_Ogrenci">
+          <End Role="Tbl_Ogrenci" Type="Self.Tbl_Ogrenci" Multiplicity="0..1" />
+          <End Role="Tbl_Not" Type="Self.Tbl_Not" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ogrenci">
+              <PropertyRef Name="OgrId" />
+            </Principal>
+            <Dependent Role="Tbl_Not">
+              <PropertyRef Name="OgrId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbMvcOkulEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Dersler" EntityType="Self.Tbl_Dersler" />
+          <EntitySet Name="Tbl_Kulup" EntityType="Self.Tbl_Kulup" />
+          <EntitySet Name="Tbl_Not" EntityType="Self.Tbl_Not" />
+          <EntitySet Name="Tbl_Ogrenci" EntityType="Self.Tbl_Ogrenci" />
+          <AssociationSet Name="FK_Tbl_Not_Tbl_Dersler" Association="Self.FK_Tbl_Not_Tbl_Dersler">
+            <End Role="Tbl_Dersler" EntitySet="Tbl_Dersler" />
+            <End Role="Tbl_Not" EntitySet="Tbl_Not" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ogrenci_Tbl_Kulup" Association="Self.FK_Tbl_Ogrenci_Tbl_Kulup">
+            <End Role="Tbl_Kulup" EntitySet="Tbl_Kulup" />
+            <End Role="Tbl_Ogrenci" EntitySet="Tbl_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Not_Tbl_Ogrenci" Association="Self.FK_Tbl_Not_Tbl_Ogrenci">
+            <End Role="Tbl_Ogrenci" EntitySet="Tbl_Ogrenci" />
+            <End Role="Tbl_Not" EntitySet="Tbl_Not" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbMvcOkulModelStoreContainer" CdmEntityContainer="DbMvcOkulEntities">
+          <EntitySetMapping Name="Tbl_Dersler">
+            <EntityTypeMapping TypeName="DbMvcOkulModel.Tbl_Dersler">
+              <MappingFragment StoreEntitySet="Tbl_Dersler">
+                <ScalarProperty Name="DersId" ColumnName="DersId" />
+                <ScalarProperty Name="DersAdi" ColumnName="DersAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Kulup">
+            <EntityTypeMapping TypeName="DbMvcOkulModel.Tbl_Kulup">
+              <MappingFragment StoreEntitySet="Tbl_Kulup">
+                <ScalarProperty Name="KulupId" ColumnName="KulupId" />
+                <ScalarProperty Name="KulupAdi" ColumnName="KulupAdi" />
+                <ScalarProperty Name="KulupKontejan" ColumnName="KulupKontejan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Not">
+            <EntityTypeMapping TypeName="DbMvcOkulModel.Tbl_Not">
+              <MappingFragment StoreEntitySet="Tbl_Not">
+                <ScalarProperty Name="NotId" ColumnName="NotId" />
+                <ScalarProperty Name="DersId" ColumnName="DersId" />
+                <ScalarProperty Name="OgrId" ColumnName="OgrId" />
+                <ScalarProperty Name="Sinav1" ColumnName="Sinav1" />
+                <ScalarProperty Name="Sinav2" ColumnName="Sinav2" />
+                <ScalarProperty Name="Sinav3" ColumnName="Sinav3" />
+                <ScalarProperty Name="Proje" ColumnName="Proje" />
+                <ScalarProperty Name="Ortalama" ColumnName="Ortalama" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Ogrenci">
+            <EntityTypeMapping TypeName="DbMvcOkulModel.Tbl_Ogrenci">
+              <MappingFragment StoreEntitySet="Tbl_Ogrenci">
+                <ScalarProperty Name="OgrId" ColumnName="OgrId" />
+                <ScalarProperty Name="OgrAdi" ColumnName="OgrAdi" />
+                <ScalarProperty Name="OgrSoyadi" ColumnName="OgrSoyadi" />
+                <ScalarProperty Name="OgrFotograf" ColumnName="OgrFotograf" />
+                <ScalarProperty Name="OgrCinsiyet" ColumnName="OgrCinsiyet" />
+                <ScalarProperty Name="OgrKulup" ColumnName="OgrKulup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

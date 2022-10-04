@@ -1,0 +1,54 @@
+﻿@model OgrenciNotMvc.Models.EntityFramework.Tbl_Not
+
+
+@{
+    ViewBag.Title = "NotEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NotEkle</h2>
+
+<form class="form-group" method="post">
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ders</label>
+        @Html.DropDownListFor(m => m.Tbl_Dersler.DersId, (List<SelectListItem>)ViewBag.gelenders, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ogrenci</label>
+        @Html.DropDownListFor(m => m.Tbl_Ogrenci.OgrId, (List<SelectListItem>)ViewBag.gelenogrenci, new { @class = "form-control" })
+
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Sinav 1</label>
+        <input type="number" class="form-control" id="Sinav1" name="Sinav1">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Sinav 2</label>
+        <input type="number" class="form-control" id="Sinav2" name="Sinav2">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Sinav 3</label>
+        <input type="number" class="form-control" id="Sinav3" name="Sinav3">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Proje</label>
+        <input type="number" class="form-control" id="Proje" name="Proje">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ortalama</label>
+        <input type="text" readonly class="form-control" id="Ortalama" name="Ortalama">
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ortalama</label>
+        <input type="text" readonly class="form-control" id="Durum" name="Durum">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>

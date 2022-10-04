@@ -1,0 +1,54 @@
+﻿@using OgrenciNotMvc.Models.EntityFramework;
+@model List<Tbl_Not>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Not Id</th>
+        <th>Ogrenci</th>
+        <th>Ders</th>
+        <th>Sinav 1</th>
+        <th>Sinav 2</th>
+        <th>Sinav 3</th>
+        <th>Proje</th>
+        <th>Ortalama</th>
+        <th>Durum</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.NotId</td>
+                <td>@item.Tbl_Ogrenci.OgrAdi @item.Tbl_Ogrenci.OgrSoyadi</td>
+                <td>@item.Tbl_Dersler.DersAdi</td>
+                <td>@item.Sinav1</td>
+                <td>@item.Sinav2</td>
+                <td>@item.Sinav3</td>
+                <td>@item.Proje</td>
+                <td>@item.Ortalama</td>
+                @if (item.Durum == true)
+                {
+                    <td>
+                        Gecti
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Kaldi
+                    </td>
+                }
+                <td> <a href="/Notlar/Sil/@item.NotId" class="btn btn-danger">Sil</a></td>
+                <td> <a href="/Notlar/Guncelle/@item.NotId" class="btn btn-success">Guncelle</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<a href="/Notlar/NotEkle" class="btn btn-success">Yeni Ekle</a>
+

@@ -1,0 +1,65 @@
+﻿@model OgrenciNotMvc.Models.EntityFramework.Tbl_Not
+@{
+    ViewBag.Title = "Guncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Guncelle</h2>
+
+@using (Html.BeginForm("Guncelle", "Notlar", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.DersId)
+        @Html.TextBoxFor(m => m.DersId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OgrId)
+        @Html.TextBoxFor(m => m.OgrId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sinav1)
+        @Html.TextBoxFor(m => m.Sinav1, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sinav2)
+        @Html.TextBoxFor(m => m.Sinav2, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sinav3)
+        @Html.TextBoxFor(m => m.Sinav3, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Proje)
+        @Html.TextBoxFor(m => m.Proje, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Ortalama)
+        @Html.TextBoxFor(m => m.Ortalama, new {@Value= @ViewBag.ortalama, @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Durum)
+        @Html.TextBoxFor(m => m.Durum, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(m => m.NotId)
+
+    <div class="form-group">
+        <button type="submit" name="islem" value="Hesapla" class="btn btn-primary">Hesapla</button>
+    </div>
+
+    
+    <div class="form-group">
+        <button type="submit"  name="islem" value="NotGuncelle"  class="btn btn-success">Guncelle</button>
+    </div>
+
+}
+

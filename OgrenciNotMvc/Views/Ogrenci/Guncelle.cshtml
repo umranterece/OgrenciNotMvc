@@ -1,0 +1,43 @@
+﻿@model OgrenciNotMvc.Models.EntityFramework.Tbl_Ogrenci
+@{
+    ViewBag.Title = "Guncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Guncelle</h2>
+
+@using (Html.BeginForm("Guncelle", "Ogrenci", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.OgrAdi)
+        @Html.TextBoxFor(m => m.OgrAdi, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OgrSoyadi)
+        @Html.TextBoxFor(m => m.OgrSoyadi, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OgrFotograf)
+        @Html.TextBoxFor(m => m.OgrFotograf, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.OgrCinsiyet)
+        @Html.TextBoxFor(m => m.OgrCinsiyet, new { @class = "form-control" })
+    </div>
+
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Ogrenci Kulup</label>
+        @Html.DropDownListFor(m => m.Tbl_Kulup.KulupId, (List<SelectListItem>)ViewBag.yenidgr, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(m => m.OgrId)
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Guncelle</button>
+    </div>
+
+}
